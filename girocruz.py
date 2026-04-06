@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 
 @st.cache_data(ttl=5)
 def carregar():
-    cred = pygsheets.authorize(service_file="credencial.json")
+    cred = pygsheets.authorize(service_file= os.getcwd() + "\credencial.json")
     url = "https://docs.google.com/spreadsheets/d/1ZDjG_6rmGTImx2cs_0Fsf0V6TO1AJhqrMeS2GczkXAw/edit?gid=1107801255#gid=1107801255"
     arquivo = cred.open_by_url(url)
     aba = arquivo.worksheet_by_title("Base_Cruz")
