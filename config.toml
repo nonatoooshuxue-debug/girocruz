@@ -1,0 +1,15 @@
+[theme]
+# Cor principal (botões, sliders, detalhes)
+primaryColor = "#FF4B4B"
+
+# Fundo da área principal (preto ou quase preto)
+backgroundColor = "#0E1117"
+
+# Fundo da barra lateral (um pouco mais claro ou igual ao principal)
+secondaryBackgroundColor = "#262730"
+
+# Cor do texto principal
+textColor = "#FAFAFA"
+
+# Fonte (sans serif é o padrão do Streamlit moderno)
+font = "sans serif"
