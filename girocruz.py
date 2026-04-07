@@ -8,14 +8,15 @@ st.set_page_config(layout="wide")
 
 @st.cache_data(ttl=5)
 def carregar():
-    cred = pygsheets.authorize(service_account_dict=st.secrets["controle"])
+    info_dict = dict(st.secrets["controle"])
+    
+    # 2. Autoriza usando o dicionário convertido
+    cred = pygsheets.authorize(service_account_dict=info_dict)
     
     url = "https://docs.google.com/spreadsheets/d/1ZDjG_6rmGTIMx2cs_0Fsf0V6T01AJhqrMeS2GczkXAw/edit"
     arquivo = cred.open_by_url(url)
     aba = arquivo.worksheet_by_title("Base_Cruz")
     df = aba.get_as_df()
-    return df
-    
     return df
 
 df = carregar()
