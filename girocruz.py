@@ -89,4 +89,23 @@ df_filtrado.columns = [str(c).strip().upper() for c in df_filtrado.columns]
 colunas_alvo = ["CLIENTE", "NOME FANTASIA", "SETOR", "TIPO DE VASILHAME", "CAIXAS COMODATAS","GV", "COMPROU", "FALTA COMPRAR", "META", "TENDÊNCIA"]
 df_exibir = df_filtrado[[c for c in colunas_alvo if c in df_filtrado.columns]].copy()
 col_real = next((c for c in df_exibir.columns if "TENDEN" in c), None)
+
+df_graf = df_filtrado.copy()
+df_graf["META"] = pd.to_numeric(df_graf["META"].astype(str).str.replace(",", "."), errors="coerce").fillna(0)
+def definir_cor(status):
+    status = str(status).upper().strip()
+    if status == "BATE":
+        return "BATEU A META"
+    elif status == "ABAIXO":
+      return "ABAIXO DA META"
+    else:
+        return "-"
+    
+df_graf["Status_Visual"] = df_graf["TENDÊNCIA"].apply(definir_cor)
+fig = px.bar(df_graf, y="NOME FANTASIA", x="META", color="Status_Visual", orientation="h", title="Meta por Cliente (Colorido por Status de Tendência)", color_discrete_map={"BATEU A META": "#00C853",
+        "ABAIXO DA META": "#FF5252",  
+        "Pendente / Outros": "#B0BEC5"}, labels={"META": "Valor da Meta", "Status_Visual": "Tendência"})
+fig.update_layout(yaxis={'categoryorder':'total ascending'}, height=600)
+
+st.plotly_chart(fig, use_container_width=True)
 st.table(df_exibir)
