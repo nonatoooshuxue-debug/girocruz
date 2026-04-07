@@ -9,17 +9,24 @@ st.set_page_config(layout="wide")
 
 @st.cache_data(ttl=5)
 def carregar():
+    escopos = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive"
+    ]
+    
     info_dict = dict(st.secrets["controle"])
-    creds = service_account.Credentials.from_service_account_info(info_dict)
+    creds = service_account.Credentials.from_service_account_info(
+        info_dict, 
+        scopes=escopos
+    )
     cred = pygsheets.authorize(service_account_credentials=creds)
     
     url = "https://docs.google.com/spreadsheets/d/1ZDjG_6rmGTIMx2cs_0Fsf0V6T01AJhqrMeS2GczkXAw/edit"
     arquivo = cred.open_by_url(url)
     aba = arquivo.worksheet_by_title("Base_Cruz")
     df = aba.get_as_df()
-    
     return df
-
+    
 df = carregar()
 df = df.loc[:, df.columns != ''] 
 df = df.loc[:, ~df.columns.duplicated()]
