@@ -86,7 +86,7 @@ st.divider()
 
 st.subheader(f"Detalhamento por GV: {gv_fil}")
 df_filtrado.columns = [str(c).strip().upper() for c in df_filtrado.columns]
-colunas_alvo = ["CLIENTE", "NOME FANTASIA", "SETOR", "GV", "META", "TENDÊNCIA"]
+colunas_alvo = ["CLIENTE", "NOME FANTASIA", "SETOR", "TIPO DE VASILHAME", "CAIXAS COMODATAS","GV", "COMPROU", "FALTA COMPRAR", "META", "TENDÊNCIA"]
 df_exibir = df_filtrado[[c for c in colunas_alvo if c in df_filtrado.columns]].copy()
 col_real = next((c for c in df_exibir.columns if "TENDEN" in c), None)
 st.table(df_exibir)
