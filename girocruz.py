@@ -32,8 +32,8 @@ def carregar():
     
     client = pygsheets.client.Client(creds)
     
-    url = "https://docs.google.com/spreadsheets/d/1ZDjG_6rmGTIMx2cs_0Fsf0V6T01AJhqrMeS2GczkXAw/edit"
-    arquivo = client.open_by_url(url)
+    sheet_id = "1ZDjG_6rmGTIMx2cs_0Fsf0V6T01AJhqrMeS2GczkXAw"
+    arquivo = client.open_by_key(sheet_id)
     aba = arquivo.worksheet_by_title("Base_Cruz")
     
     return aba.get_as_df()
