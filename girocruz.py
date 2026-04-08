@@ -42,7 +42,6 @@ def carregar_v5(): # Mudei o nome aqui
         st.error(f"Erro ao acessar a planilha: {e}")
         return None
 
-# ATENÇÃO: Lá embaixo no seu código, onde você chama a função, mude para:
 df = carregar_v5()
 df = df.loc[:, df.columns != ''] 
 df = df.loc[:, ~df.columns.duplicated()]
